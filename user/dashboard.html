@@ -1,0 +1,429 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+<head>
+
+    <!--- basic page needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>Fraud Sms Email Detection</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- mobile specific metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="{% static "userstatic/css/base.css" %}">
+    <link rel="stylesheet" href="{% static "userstatic/css/vendor.css" %}">
+    <link rel="stylesheet" href="{% static "userstatic/css/main.css" %}">
+
+    <!-- favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        .ag-format-container {
+            width: 1142px;
+            margin: 0 auto;
+        }
+
+
+        body {
+            background-color: #000;
+        }
+
+        .ag-courses_box {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: start;
+            -ms-flex-align: start;
+            align-items: flex-start;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+
+            padding: 50px 0;
+        }
+
+        .ag-courses_item {
+            -ms-flex-preferred-size: calc(33.33333% - 30px);
+            flex-basis: calc(33.33333% - 30px);
+
+            margin: 0 15px 30px;
+
+            overflow: hidden;
+
+            border-radius: 28px;
+        }
+
+        .ag-courses-item_link {
+            display: block;
+            padding: 30px 20px;
+            background-color: #121212;
+
+            overflow: hidden;
+
+            position: relative;
+        }
+
+        .ag-courses-item_link:hover,
+        .ag-courses-item_link:hover .ag-courses-item_date {
+            text-decoration: none;
+            color: #FFF;
+        }
+
+        .ag-courses-item_link:hover .ag-courses-item_bg {
+            -webkit-transform: scale(10);
+            -ms-transform: scale(10);
+            transform: scale(10);
+        }
+
+        .ag-courses-item_title {
+            min-height: 87px;
+            margin: 0 0 25px;
+
+            overflow: hidden;
+
+            font-weight: bold;
+            font-size: 30px;
+            color: #FFF;
+
+            z-index: 2;
+            position: relative;
+        }
+
+        .ag-courses-item_date-box {
+            font-size: 18px;
+            color: #FFF;
+
+            z-index: 2;
+            position: relative;
+        }
+
+        .ag-courses-item_date {
+            font-weight: bold;
+            color: #f9b234;
+
+            -webkit-transition: color .5s ease;
+            -o-transition: color .5s ease;
+            transition: color .5s ease
+        }
+
+        .ag-courses-item_bg {
+            height: 128px;
+            width: 128px;
+            background-color: #f9b234;
+
+            z-index: 1;
+            position: absolute;
+            top: -75px;
+            right: -75px;
+
+            border-radius: 50%;
+
+            -webkit-transition: all .5s ease;
+            -o-transition: all .5s ease;
+            transition: all .5s ease;
+        }
+
+        .ag-courses_item:nth-child(2n) .ag-courses-item_bg {
+            background-color: #3ecd5e;
+        }
+
+        .ag-courses_item:nth-child(3n) .ag-courses-item_bg {
+            background-color: #e44002;
+        }
+
+        .ag-courses_item:nth-child(4n) .ag-courses-item_bg {
+            background-color: #952aff;
+        }
+
+        .ag-courses_item:nth-child(5n) .ag-courses-item_bg {
+            background-color: #cd3e94;
+        }
+
+        .ag-courses_item:nth-child(6n) .ag-courses-item_bg {
+            background-color: #4c49ea;
+        }
+
+
+
+        @media only screen and (max-width: 979px) {
+            .ag-courses_item {
+                -ms-flex-preferred-size: calc(50% - 30px);
+                flex-basis: calc(50% - 30px);
+            }
+
+            .ag-courses-item_title {
+                font-size: 24px;
+            }
+        }
+
+        @media only screen and (max-width: 767px) {
+            .ag-format-container {
+                width: 96%;
+            }
+
+        }
+
+        @media only screen and (max-width: 639px) {
+            .ag-courses_item {
+                -ms-flex-preferred-size: 100%;
+                flex-basis: 100%;
+            }
+
+            .ag-courses-item_title {
+                min-height: 72px;
+                line-height: 1;
+
+                font-size: 24px;
+            }
+
+            .ag-courses-item_link {
+                padding: 22px 40px;
+            }
+
+            .ag-courses-item_date-box {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body id="top">
+
+    <div id="preloader">
+        <div id="loader"></div>
+    </div>
+
+
+    <!-- header 
+    ================================================== -->
+    <header class="s-header">
+
+        <div class="header-logo">
+            <a class="site-logo" href="{% url "dashboard" %}">
+                <img src="{% static "userstatic/images/mlogom.png" %}" alt="Homepage" style="height: 80px; width: 100px; margin-left: 50px; ">
+            </a>
+        </div>
+
+        <nav class="row header-nav-wrap wide">
+            <ul class="header-main-nav">
+                <li class="current"><a href="{% url "dashboard" %}" title="blog">Dashboard</a></li>
+                <li><a href="{% url "myprofile" %}" title="blog">My Profile</a></li>
+                <li><a href="{% url "detection" %}" title="blog">Spam Detection</a></li>
+                <li><a href="{% url "feedback" %}" title="blog">Feedback</a></li>
+                <li><a href="{% url "userlogout" %}" title="blog">Logout</a></li>
+
+
+            </ul>
+
+            <ul class="header-social">
+                <li><a href="#0"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
+                <li><a href="#0"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+                <li><a href="#0"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+            </ul>
+        </nav>
+
+        <a class="header-menu-toggle" href="#"><span>Menu</span></a>
+
+    </header> <!-- end header -->
+    <section class="page-header">
+
+        <div class="row page-header__content narrower text-center">
+            <div class="col-full">
+
+                <h3 class="subhead">Dashboard</h3>
+                <h3 style="color: #ffffff;" class="display-1">
+                    Thoughts, Ideas, Insights and Other Stuff.
+                </h2>
+
+               
+                </div>  <!-- end page-header__search -->
+
+            </div>
+        </div>
+
+    </section> <!-- end page-header -->
+    <style>
+
+    #user-details-heading {
+      font-size: 36px;
+      margin-bottom: 20px;
+      border-bottom: 5px solid #ffffff;
+      font-family: 'Roboto', sans-serif; /* Applying Roboto font to the entire document */
+      text-align: center; /* Center-aligning the text */
+      color: #FFF;
+    }        
+      </style>
+    <h1 id="user-details-heading" style="padding-bottom: 10px;">User Details</h1>
+    <div class="ag-format-container">
+        <div class="ag-courses_box">
+            <div class="ag-courses_item">
+                <a href="#" class="ag-courses-item_link">
+                    <div class="ag-courses-item_bg"></div>
+
+                    <div class="ag-courses-item_title">
+                        Number Of Times User Logged In Details<hr>
+                        
+                    </div>
+
+                    <div class="ag-courses-item_date-box">
+                        Start:
+                        <span class="ag-courses-item_date">
+                            {{la.No_Of_Times_Login}}                        </span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="ag-courses_item">
+                <a href="#" class="ag-courses-item_link">
+                    <div class="ag-courses-item_bg"></div>
+
+                    <div class="ag-courses-item_title">
+                        Clock Today's Date, Time And Year 
+                    </div>
+
+                    <div class="ag-courses-item_date-box">
+                        Start:
+                        <span class="ag-courses-item_date" id="currentDateTime"></span>
+
+  <script>
+    // JavaScript code to add the current date and time to the span element
+    document.addEventListener('DOMContentLoaded', function() {
+      var currentDate = new Date();
+      var formattedDate = currentDate.toLocaleString(); // Adjust the format as needed
+
+      // Get the span element and set its content to the formatted date
+      var dateSpan = document.getElementById('currentDateTime');
+      dateSpan.textContent = formattedDate;
+    });
+  </script>
+                    </div>
+                </a>
+            </div>
+
+            <div class="ag-courses_item">
+                <a href="#" class="ag-courses-item_link">
+                    <div class="ag-courses-item_bg"></div>
+
+                    <div class="ag-courses-item_title">
+User Last Logged In Details Date And Time                    
+</div><hr><br>
+
+                    <div class="ag-courses-item_date-box">
+                        Start:
+                        <span class="ag-courses-item_date">
+                            {{la.Last_Login_Date}} {{la.Last_Login_Time}}
+                        </span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <!-- footer
+    ================================================== -->
+    <footer class="s-footer footer">
+
+        <div class="row footer__top">
+            <div class="col-six md-full">
+                <h1 class="display-2">
+                    Let's Stay In Touch.
+                </h1>
+                <p class="lead">
+                    Subscribe for updates, special offers and more.
+                </p>
+            </div>
+            <div class="col-six md-full footer__subscribe end">
+                <div class="subscribe-form">
+                    <form id="mc-form" class="group" novalidate="true">
+
+                        <input type="email" value="" name="EMAIL" class="email" id="mc-email"
+                            placeholder="Email Address" required="">
+
+                        <input type="submit" name="subscribe" value="Sign Up">
+
+                        <label for="mc-email" class="subscribe-message"></label>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row footer__bottom">
+            <div class="col-five tab-full">
+                <div class="footer__logo">
+                    <a href="{% url "dashboard" %}">
+                        <img src="{% static "userstatic/images/logo-2.png" %}" alt="Homepage" style="height: 40px; width: 100%;">
+
+                    </a>
+                </div>
+
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                    laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
+
+                <ul class="footer__social">
+                    <li><a href="#0"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
+                    <li><a href="#0"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+                    <li><a href="#0"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+                </ul>
+            </div>
+
+            <div class="col-six tab-full end">
+                <ul class="footer__site-links">
+                    <li><a class="smoothscroll" href="#" title="intro">Dashboard</a></li>
+                    <li><a class="smoothscroll" href="#" title="about">My Profile</a></li>
+                    <li><a class="smoothscroll" href="#" title="features">Mail Detection</a></li>
+                    <li><a class="smoothscroll" href="#" title="pricing">Feedback</a></li>
+                </ul>
+
+                <p class="footer__contact">
+                    Do you have a question? Send us a word: <br>
+                    <a href="#" class="footer__mail-link">projects@codebook.in</a>
+                </p>
+
+                <div class="cl-copyright">
+                    <span>
+                        Copyright &copy;
+                        <script>document.write(new Date().getFullYear());</script> All rights reserved | This template
+                        is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a
+                            href="https://www.codebook.in/" target="_blank">Codebook</a>
+                    </span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="go-top">
+            <a class="smoothscroll" title="Back to Top" href="#top"></a>
+        </div>
+
+    </footer> <!-- end s-footer -->
+
+
+    <!-- Java Script
+    ================================================== -->
+    <script src="{% static "userstatic/js/jquery-3.2.1.min.js" %}"></script>
+    <script src="{% static "userstatic/js/plugins.js" %}"></script>
+    <script src="{% static "userstatic/js/main.js" %}"></script>
+     <!-- script
+    ================================================== -->
+    <script src="{% static "userstatic/js/modernizr.js" %}"></script>
+    <script src="{% static "userstatic/js/pace.min.js" %}"></script>
+
+
+</body>
+</html>

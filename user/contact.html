@@ -1,0 +1,245 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+
+    <!--- basic page needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>Fraud Sms Email Detection</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- mobile specific metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="{% static "userstatic/css/base.css" %}">
+    <link rel="stylesheet" href="{% static "userstatic/css/vendor.css" %}">
+    <link rel="stylesheet" href="{% static "userstatic/css/main.css" %}">
+
+    <style type="text/css" media="screen">
+        .s-styles { 
+            background-color: #ffffff;
+            padding-top: 18rem;
+            padding-bottom: 14.8rem;
+        }
+    </style>
+
+
+    <!-- favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+</head>
+
+<body id="top">
+
+    <div id="preloader">
+        <div id="loader"></div>
+    </div>
+
+
+    <!-- header 
+    ================================================== -->
+    <header class="s-header s-header--blog">
+
+        <div class="header-logo">
+            <a class="site-logo" href="{% url "index" %}">
+                <img src="{% static "userstatic/images/mlogom.png" %}" alt="Homepage" style="height: 80px; width: 100px; margin-left: 50px; ">
+
+            </a>
+        </div>
+
+        <nav class="row header-nav-wrap wide">
+            <ul class="header-main-nav">
+                <li><a href="{% url "index" %}" title="blog">Home</a></li>
+                <li><a class="active" href="{% url "about" %}" title="blog">About</a></li>
+                <li><a href="{% url "blog" %}" title="blog">Blog</a></li>
+                <li><a href="{% url "admin" %}" title="blog">Admin Login</a></li>
+                <li><a href="{% url "user" %}" title="blog">User Login</a></li>
+                <li class="current"><a href="{% url "contact" %}" title="blog">Contact</a></li>
+            </ul>
+
+            <ul class="header-social">
+                <li><a href="#0"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
+                <li><a href="#0"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+                <li><a href="#0"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+            </ul>
+        </nav>
+
+        <a class="header-menu-toggle" href="#"><span>Menu</span></a>
+
+    </header> <!-- end header -->
+
+
+    <!-- home
+    ================================================== -->
+    <section class="page-header">
+
+        <div class="row page-header__content narrower text-center">
+            <div class="col-full">
+
+                <h3 class="subhead">Contact Us</h3>
+                <h3 style="color: #ffffff;" class="display-1">
+                    Thoughts, Ideas, Insights and Other Stuff.
+                </h2>
+
+               
+                </div>  <!-- end page-header__search -->
+
+            </div>
+        </div>
+
+    </section> <!-- end page-header -->
+
+
+    <!-- styles
+    ================================================== -->
+    <section id="styles" class="s-styles">
+
+        <div class="row">
+
+            <div class="col-six tab-full">
+
+                <h3>Send Details</h3>
+
+                <form>
+                        <div>
+                            <label for="sampleInput">Your email</label>
+                            <input class="full-width" type="email" placeholder="test@mailbox.com" id="sampleInput">
+                    </div>
+                    <div>
+                            <label for="sampleRecipientInput">Reason for contacting</label>
+                            <div class="cl-custom-select">
+                                <select class="full-width" id="sampleRecipientInput">
+                                    <option value="Option 1">Questions</option>
+                                    <option value="Option 2">Report</option>
+                                    <option value="Option 3">Others</option>
+                                </select>
+                            </div>
+                    </div>
+                    
+                        <label for="exampleMessage">Message</label>
+                        <textarea class="full-width" placeholder="Your message" id="exampleMessage"></textarea>
+
+                        <label class="add-bottom">
+                            <input type="checkbox">
+                            <span class="label-text">Send a copy to yourself</span>
+                        </label>
+                    
+                        <input class="btn--primary full-width" type="submit" value="Submit">
+
+                </form>
+
+            </div>
+            <div class="col-six tab-full">
+
+                <h3>Location</h3>
+                
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3808.2382083310913!2d78.54681497493388!3d17.352266983528935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb9978d5a0a633%3A0x7f965425ffaf7960!2sCodebook!5e0!3m2!1sen!2sin!4v1703591955141!5m2!1sen!2sin" width="600" height="650" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            
+            </div>
+
+        </div> <!-- end row -->
+
+    </section> <!-- end styles -->
+
+
+    <!-- footer
+    ================================================== -->
+    <footer class="s-footer footer">
+
+        <div class="row footer__top">
+            <div class="col-six md-full">
+                <h1 class="display-2">
+                    Let's Stay In Touch.
+                </h1>
+                <p class="lead">
+                    Subscribe for updates, special offers and more.
+                </p>
+            </div>
+            <div class="col-six md-full footer__subscribe end">
+                <div class="subscribe-form">
+                    <form id="mc-form" class="group" novalidate="true">
+
+                        <input type="email" value="" name="EMAIL" class="email" id="mc-email" placeholder="Email Address" required="">
+            
+                        <input type="submit" name="subscribe" value="Sign Up">
+            
+                        <label for="mc-email" class="subscribe-message"></label>
+            
+                    </form>
+                </div>
+            </div>
+        </div> <!-- end footer__top -->
+
+        <div class="row footer__bottom">
+            <div class="col-five tab-full">
+                <div class="footer__logo">
+                    <a href="index.html">
+                        <img src="{% static "userstatic/images/logo-2.png" %}" alt="Homepage" style="height: 40px; width: 100%;">
+                    </a>
+                </div>
+
+                <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed 
+                do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+                laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
+
+                <ul class="footer__social">
+                    <li><a href="#0"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
+                    <li><a href="#0"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+                    <li><a href="#0"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+                </ul>
+            </div>
+
+            <div class="col-six tab-full end">
+                <ul class="footer__site-links">
+                    <li><a class="smoothscroll" href="#home" title="intro">Intro</a></li>
+                    <li><a href="index.html#about" title="about">About</a></li>
+                    <li><a href="index.html#features" title="features">Features</a></li>
+                    <li><a href="index.html#pricing" title="pricing">Pricing</a></li>
+                    <li><a href="blog.html" title="blog">Blog</a></li>	
+                </ul>
+
+                <p class="footer__contact">
+                    Do you have a question? Send us a word: <br>
+                    <a href="mailto:#0" class="footer__mail-link">support@standout.com</a>
+                </p>
+
+                <div class="cl-copyright">
+                    <span><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="go-top">
+            <a class="smoothscroll" title="Back to Top" href="#top"></a>
+        </div>
+
+    </footer> <!-- end s-footer -->
+
+
+ <!-- Java Script
+    ================================================== -->
+    <script src="{% static "userstatic/js/jquery-3.2.1.min.js" %}"></script>
+    <script src="{% static "userstatic/js/plugins.js" %}"></script>
+    <script src="{% static "userstatic/js/main.js" %}"></script>
+     <!-- script
+    ================================================== -->
+    <script src="{% static "userstatic/js/modernizr.js" %}"></script>
+    <script src="{% static "userstatic/js/pace.min.js" %}"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,428 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+<head>
+
+    <!--- basic page needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>Fraud Sms Email Detection</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- mobile specific metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="{% static "userstatic/css/base.css" %}">
+    <link rel="stylesheet" href="{% static "userstatic/css/vendor.css" %}">
+    <link rel="stylesheet" href="{% static "userstatic/css/main.css" %}">
+
+    <!-- favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        .feed {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: large;
+            background-color: blanchedalmond;
+        }
+
+        .submit {
+
+            color: blueviolet;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .rate {
+            float: left;
+            height: 46px;
+            padding: 0 10px;
+        }
+
+        .rate:not(:checked)>input {
+            position: absolute;
+            top: -9999px;
+        }
+
+        .rate:not(:checked)>label {
+            float: right;
+            width: 1em;
+            overflow: hidden;
+            white-space: nowrap;
+            cursor: pointer;
+            font-size: 30px;
+            color: #ccc;
+        }
+
+        .rate:not(:checked)>label:before {
+            content: '★ ';
+        }
+
+        .rate>input:checked~label {
+            color: #ffc700;
+        }
+
+        .rate:not(:checked)>label:hover,
+        .rate:not(:checked)>label:hover~label {
+            color: #deb217;
+        }
+
+        .rate>input:checked+label:hover,
+        .rate>input:checked+label:hover~label,
+        .rate>input:checked~label:hover,
+        .rate>input:checked~label:hover~label,
+        .rate>label:hover~input:checked~label {
+            color: #c59b08;
+        }
+
+        .rating {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: center;
+        }
+
+        .rating input {
+            display: none;
+        }
+
+        .rating label {
+            color: #bbb;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .rating label:before {
+            content: "★";
+        }
+
+        .rating input:checked~label {
+            color: #ff9800;
+        }
+
+        .rating label:hover,
+        .rating label:hover~label {
+            color: #ff9800;
+        }
+
+        /* Modified from: https://github.com/mukulkant/Star-rating-using-pure-css */
+    </style>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .background-container {
+            background-image: url(../assets/images/download.avif);
+            background-size: cover;
+            width: 100%;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .page-header {
+            text-align: center;
+            color: white;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .feedback-form {
+            background-color: #f5f5f5;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 20px auto;
+            width: 80%;
+            box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .star-rating {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+
+
+        .star-rating input[type="radio"] {
+            display: none;
+        }
+
+        .feedback-textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical;
+        }
+
+        .submit-button {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .submit-button button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Add this CSS for responsive star ratings */
+        .star-rating {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .star-rating label {
+
+            cursor: pointer;
+            transition: transform 0.5s;
+        }
+
+        .star-rating input[type="radio"] {
+            display: none;
+        }
+
+        /* Media queries for responsive design */
+        @media (max-width: 768px) {
+            .star-rating label {
+                font-size: 20px;
+                /* Decrease font size for smaller screens */
+            }
+        }
+    </style>
+</head>
+
+<body id="top">
+
+    <div id="preloader">
+        <div id="loader"></div>
+    </div>
+
+
+    <!-- header 
+    ================================================== -->
+    <header class="s-header">
+
+        <div class="header-logo">
+            <a class="site-logo" href="{% url "dashboard" %}">
+                <img src="{% static "userstatic/images/mlogom.png" %}" alt="Homepage" style="height: 80px; width: 100px; margin-left: 50px; ">
+            </a>
+        </div>
+
+        <nav class="row header-nav-wrap wide">
+            <ul class="header-main-nav">
+                <li ><a href="{% url "dashboard" %}" title="blog">Dashboard</a></li>
+                <li><a href="{% url "myprofile" %}" title="blog">My Profile</a></li>
+                <li ><a href="{% url "detection" %}" title="blog">Spam Detection</a></li>
+                <li class="current"><a href="{% url "feedback" %}" title="blog">Feedback</a></li>
+                <li><a href="{% url "userlogout" %}" title="blog">Logout</a></li>
+
+
+            </ul>
+
+            <ul class="header-social">
+                <li><a href="#0"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
+                <li><a href="#0"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+                <li><a href="#0"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+            </ul>
+        </nav>
+
+        <a class="header-menu-toggle" href="#"><span>Menu</span></a>
+
+    </header> <!-- end header -->
+    <section class="page-header">
+
+        <div class="row page-header__content narrower text-center">
+            <div class="col-full">
+
+                <h3 class="subhead">Feedback</h3>
+                <h3 style="color: #ffffff;" class="display-1">
+                    Thoughts, Ideas, Insights and Other Stuff.
+                    </h2>
+
+
+            </div> <!-- end page-header__search -->
+
+        </div>
+        </div>
+
+    </section> <!-- end page-header -->
+
+
+    <!-- Contact Start -->
+    <div class="container-fluid">
+        <div class="container" style="background-color: #000000; padding-bottom: 50px; padding-top: 50px; border-radius: 15px;">
+            
+            <section class="feedback-form">
+                <div class="container">
+                    <div class="section-title">
+                        <img src="{% static "userstatic/img/icon-white.png" %}" alt="">
+                        <h2>Make Your Feedback</h2>
+                    </div>
+
+                    <form method="post"  enctype="multipart/form-data">
+                        {% csrf_token %}                        
+                        <div class="rating">
+                            <input type="radio" id="star5" name="rating" value="5" required>
+                            <label for="star5"></label>
+                            <input type="radio" id="star4" name="rating" value="4">
+                            <label for="star4"></label>
+                            <input type="radio" id="star3" name="rating" value="3">
+                            <label for="star3"></label>
+                            <input type="radio" id="star2" name="rating" value="2">
+                            <label for="star2"></label>
+                            <input type="radio" id="star1" name="rating" value="1">
+                            <label for="star1"></label>
+                        </div>
+
+                        <textarea name="feedback" class="feedback-textarea" rows="5" placeholder="Feedback"></textarea>
+
+                        <div class="submit-button">
+                            <button type="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+
+
+
+
+
+
+    <!-- footer
+    ================================================== -->
+    <footer class="s-footer footer">
+
+        <div class="row footer__top">
+            <div class="col-six md-full">
+                <h1 class="display-2">
+                    Let's Stay In Touch.
+                </h1>
+                <p class="lead">
+                    Subscribe for updates, special offers and more.
+                </p>
+            </div>
+            <div class="col-six md-full footer__subscribe end">
+                <div class="subscribe-form">
+                    <form id="mc-form" class="group" novalidate="true">
+
+                        <input type="email" value="" name="EMAIL" class="email" id="mc-email"
+                            placeholder="Email Address" required="">
+
+                        <input type="submit" name="subscribe" value="Sign Up">
+
+                        <label for="mc-email" class="subscribe-message"></label>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row footer__bottom">
+            <div class="col-five tab-full">
+                <div class="footer__logo">
+                    <a href="{% url "dashboard" %}">
+                        <img src="{% static "userstatic/images/logo-2.png" %}" alt="Homepage" style="height: 40px; width: 100%;">
+
+                    </a>
+                </div>
+
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                    laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
+
+                <ul class="footer__social">
+                    <li><a href="#0"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
+                    <li><a href="#0"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+                    <li><a href="#0"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+                </ul>
+            </div>
+
+            <div class="col-six tab-full end">
+                <ul class="footer__site-links">
+                    <li><a class="smoothscroll" href="#" title="intro">Dashboard</a></li>
+                    <li><a class="smoothscroll" href="#" title="about">My Profile</a></li>
+                    <li><a class="smoothscroll" href="#" title="features">Mail Detection</a></li>
+                    <li><a class="smoothscroll" href="#" title="pricing">Feedback</a></li>
+                </ul>
+
+                <p class="footer__contact">
+                    Do you have a question? Send us a word: <br>
+                    <a href="#" class="footer__mail-link">projects@codebook.in</a>
+                </p>
+
+                <div class="cl-copyright">
+                    <span>
+                        Copyright &copy;
+                        <script>document.write(new Date().getFullYear());</script> All rights reserved | This template
+                        is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a
+                            href="https://www.codebook.in/" target="_blank">Codebook</a>
+                    </span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="go-top">
+            <a class="smoothscroll" title="Back to Top" href="#top"></a>
+        </div>
+
+    </footer> <!-- end s-footer -->
+
+
+    <!-- Java Script
+    ================================================== -->
+    <script src="{% static "userstatic/js/jquery-3.2.1.min.js" %}"></script>
+    <script src="{% static "userstatic/js/plugins.js" %}"></script>
+    <script src="{% static "userstatic/js/main.js" %}"></script>
+     <!-- script
+    ================================================== -->
+    <script src="{% static "userstatic/js/modernizr.js" %}"></script>
+    <script src="{% static "userstatic/js/pace.min.js" %}"></script>
+
+
+</body>
+</html>

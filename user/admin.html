@@ -1,0 +1,404 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+<head>
+
+    <!--- basic page needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>Fraud Sms Email Detection</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- mobile specific metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="{% static "userstatic/css/base.css" %}">
+    <link rel="stylesheet" href="{% static "userstatic/css/vendor.css" %}">
+    <link rel="stylesheet" href="{% static "userstatic/css/main.css" %}">
+
+    <!-- favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="{% static "favicon.ico" %}" type="image/x-icon">
+    <link rel="icon" href="{% static "favicon.ico" %}" type="image/x-icon">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+
+
+        .red {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2px;
+            flex-wrap: wrap;
+            overflow: hidden;
+        }
+
+        .red::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(#000, #0f0, #000);
+            animation: animate 5s linear infinite;
+        }
+
+        @keyframes animate {
+            0% {
+                transform: translateY(-100%);
+            }
+
+            100% {
+                transform: translateY(100%);
+            }
+        }
+
+        .red span {
+            position: relative;
+            display: block;
+            width: calc(6.25vw - 2px);
+            height: calc(6.25vw - 2px);
+            background: #181818;
+            z-index: 2;
+            transition: 1.5s;
+        }
+
+        .red span:hover {
+            background: #0f0;
+            transition: 0s;
+        }
+
+        .red .signin {
+            position: absolute;
+            width: 400px;
+            background: #222;
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 9);
+        }
+
+        .red .signin .content {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .red .signin .content h2 {
+            font-size: 2em;
+            color: #0f0;
+            text-transform: uppercase;
+        }
+
+        .red .signin .content .form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .red .signin .content .form .inputBox {
+            position: relative;
+            width: 100%;
+        }
+
+        .red .signin .content .form .inputBox input {
+            position: relative;
+            width: 100%;
+            background: #333;
+            border: none;
+            outline: none;
+            padding: 25px 10px 7.5px;
+            border-radius: 4px;
+            color: #fff;
+            font-weight: 500;
+            font-size: 1em;
+        }
+
+        .red .signin .content .form .inputBox i {
+            position: absolute;
+            left: 0;
+            padding: 15px 10px;
+            font-style: normal;
+            color: #aaa;
+            transition: 0.5s;
+            pointer-events: none;
+        }
+
+        .signin .content .form .inputBox input:focus~i,
+        .signin .content .form .inputBox input:valid~i {
+            transform: translateY(-7.5px);
+            font-size: 0.8em;
+            color: #fff;
+        }
+
+        .signin .content .form .links {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .signin .content .form .links a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .signin .content .form .links a:nth-child(2) {
+            color: #0f0;
+            font-weight: 600;
+        }
+
+        .signin .content .form .inputBox input[type="submit"] {
+            padding: 10px;
+            background: #0f0;
+            color: #000;
+            font-weight: 600;
+            font-size: 1.35em;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:active {
+            opacity: 0.6;
+        }
+
+        @media (max-width: 900px) {
+            section span {
+                width: calc(10vw - 2px);
+                height: calc(10vw - 2px);
+            }
+        }
+
+        @media (max-width: 600px) {
+            section span {
+                width: calc(20vw - 2px);
+                height: calc(20vw - 2px);
+            }
+        }
+    </style>
+</head>
+
+<body id="top">
+
+    <div id="preloader">
+        <div id="loader"></div>
+    </div>
+
+
+    <!-- header 
+    ================================================== -->
+    <header class="s-header s-header--blog">
+
+        <div class="header-logo">
+            <a class="site-logo" href="{% url "index" %}">
+                <img src="{% static "userstatic/images/mlogom.png" %}" alt="Homepage" style="height: 80px; width: 100px; margin-left: 50px; ">
+            </a>
+        </div>
+
+        <nav class="row header-nav-wrap wide">
+            <ul class="header-main-nav">
+                <li><a href="{% url "index" %}" title="blog">Home</a></li>
+                <li><a  href="{% url "about" %}" title="blog">About</a></li>
+                <li><a href="{% url "blog" %}" title="blog">Blog</a></li>
+                <li class="current"><a href="{% url "admin" %}" title="blog">Admin Login</a></li>
+                <li><a href="{% url "user" %}" title="blog">User Login</a></li>
+                <li><a href="{% url "contact" %}" title="blog">Contact</a></li>
+            </ul>
+
+            <ul class="header-social">
+                <li><a href="#0"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
+                <li><a href="#0"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+                <li><a href="#0"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+            </ul>
+        </nav>
+
+        <a class="header-menu-toggle" href="#"><span>Menu</span></a>
+
+    </header> <!-- end header -->
+
+
+    <!-- page header
+    ================================================== -->
+    <section class="page-header">
+
+        <div class="row page-header__content narrower text-center">
+            <div class="col-full">
+
+                <h3 class="subhead">Admin Login</h3>
+                <h1 class="display-1">
+                    Thoughts, Ideas, Insights and Other Stuff.
+                </h1>
+
+
+            </div> <!-- end page-header__search -->
+
+        </div>
+        </div>
+
+    </section> <!-- end page-header -->
+
+    <form method='post' enctype='multipart/form-data'>
+        {% csrf_token %}
+
+ <section class="red"> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> 
+
+   <div class="signin row"> 
+
+    <div class="content col-12"> 
+
+     <h2>Admin Login</h2> 
+
+     <div class="form"> 
+
+      <div class="inputBox"> 
+
+       <input type="text" name="emailaddress" placeholder="Email-Id" required>  
+
+      </div> 
+
+      <div class="inputBox" > 
+
+       <input type="password" name="emailpassword" placeholder="Password" required>
+
+      </div> 
+
+      <div class="links"> <a href="{% url "user" %}">&nbsp;&nbsp;&nbsp;⇒ &nbsp;If You User Login Here</a> 
+
+      </div> 
+
+      <div class="inputBox"> 
+
+       <input type="submit" value="Login"> 
+
+      </div> 
+
+     </div> 
+
+    </div> 
+
+   </div> 
+
+  </section> <!-- partial --> 
+</form>
+
+  <br><br><br><br>
+  <br><br><br><br>
+  <br><br><br><br>
+  <br><br><br><br>
+  <br><br><br><br>
+  <br><br><br><br>
+  <br><br><br><br>
+
+    <!-- footer
+    ================================================== -->
+    <footer class="s-footer footer">
+
+        <div class="row footer__top">
+            <div class="col-six md-full">
+                <h1 class="display-2">
+                    Let's Stay In Touch.
+                </h1>
+                <p class="lead">
+                    Subscribe for updates, special offers and more.
+                </p>
+            </div>
+            <div class="col-six md-full footer__subscribe end">
+                <div class="subscribe-form">
+                    <form id="mc-form" class="group" novalidate="true">
+
+                        <input type="email" value="" name="EMAIL" class="email" id="mc-email"
+                            placeholder="Email Address" required="">
+
+                        <input type="submit" name="subscribe" value="Sign Up">
+
+                        <label for="mc-email" class="subscribe-message"></label>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row footer__bottom">
+            <div class="col-five tab-full">
+                <div class="footer__logo">
+                    <a href="index.html">
+                        <img src="{% static "userstatic/images/logo-2.png" %}" alt="Homepage" style="height: 40px; width: 100%;">
+                    </a>
+                </div>
+
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                    laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
+
+                <ul class="footer__social">
+                    <li><a href="#0"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
+                    <li><a href="#0"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+                    <li><a href="#0"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+                </ul>
+            </div>
+
+            <div class="col-six tab-full end">
+                <ul class="footer__site-links">
+                    <li><a class="smoothscroll" href="index.html" title="intro">Home</a></li>
+                    <li><a class="smoothscroll" href="#about" title="about">About</a></li>
+                    <li><a class="smoothscroll" href="#features" title="features">blog</a></li>
+                    <li><a class="smoothscroll" href="#pricing" title="pricing">Admin</a></li>
+                    <li><a class="smoothscroll" href="#pricing" title="pricing">User</a></li>
+                    <li><a class="smoothscroll" href="#pricing" title="pricing">Contact</a></li>
+
+                </ul>
+
+                <p class="footer__contact">
+                    Do you have a question? Send us a word: <br>
+                    <a href="#" class="footer__mail-link">projects@codebook.in</a>
+                </p>
+
+                <div class="cl-copyright">
+                    <span>
+                        Copyright &copy;
+                        <script>document.write(new Date().getFullYear());</script> All rights reserved | This template
+                        is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a
+                            href="https://www.codebook.in/" target="_blank">Codebook</a>
+                    </span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="go-top">
+            <a class="smoothscroll" title="Back to Top" href="#top"></a>
+        </div>
+
+    </footer> <!-- end s-footer -->
+
+
+ <!-- Java Script
+    ================================================== -->
+    <script src="{% static "userstatic/js/jquery-3.2.1.min.js" %}"></script>
+    <script src="{% static "userstatic/js/plugins.js" %}"></script>
+    <script src="{% static "userstatic/js/main.js" %}"></script>
+     <!-- script
+    ================================================== -->
+    <script src="{% static "userstatic/js/modernizr.js" %}"></script>
+    <script src="{% static "userstatic/js/pace.min.js" %}"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,280 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+
+    <!--- basic page needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>Fraud Sms Email Detection</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- mobile specific metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="{% static "userstatic/css/base.css" %}">
+    <link rel="stylesheet" href="{% static "userstatic/css/vendor.css" %}">
+    <link rel="stylesheet" href="{% static "userstatic/css/main.css" %}">
+    
+
+    <!-- favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+</head>
+
+<body id="top">
+    <header class="s-header">
+
+        <div class="header-logo">
+            <a class="site-logo" href="{% url "dashboard" %}">
+                <img src="{% static "userstatic/images/mlogom.png" %}" alt="Homepage" style="height: 80px; width: 100px; margin-left: 50px; ">
+            </a>
+        </div>
+
+        <nav class="row header-nav-wrap wide">
+            <ul class="header-main-nav">
+                <li ><a href="{% url "dashboard" %}" title="blog">Dashboard</a></li>
+                <li><a href="{% url "myprofile" %}" title="blog">My Profile</a></li>
+                <li class="current"><a href="{% url "detection" %}" title="blog">Spam Detection</a></li>
+                <li><a href="{% url "feedback" %}" title="blog">Feedback</a></li>
+                <li><a href="{% url "userlogout" %}" title="blog">Logout</a></li>
+
+
+            </ul>
+
+            <ul class="header-social">
+                <li><a href="#0"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
+                <li><a href="#0"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+                <li><a href="#0"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+            </ul>
+        </nav>
+
+        <a class="header-menu-toggle" href="#"><span>Menu</span></a>
+
+    </header> <!-- end header -->
+    <section class="page-header">
+
+        <div class="row page-header__content narrower text-center">
+            <div class="col-full">
+
+                <h3 class="subhead">Spam Detection</h3>
+                <h3 style="color: #ffffff;" class="display-1">
+                    Thoughts, Ideas, Insights and Other Stuff.
+                </h2>
+
+               
+                </div>  <!-- end page-header__search -->
+
+            </div>
+        </div>
+
+    </section> <!-- end page-header -->
+
+    <div id="preloader">
+        <div id="loader"></div>
+    </div>
+
+    <div id="contact" class="section lb">
+        <div class="container">
+            <div class="section-title text-center">
+                <h3 style="color: #ffffff;">Dedicate Your Message Or Mail Here</h3>
+            </div><!-- end title -->
+                
+                <form method="post"action="{% url 'detection' %}">
+                    {% csrf_token %}
+                    <div class="d-flex flex-column text-center"><br>
+                        <div class="container" style="background-color: #ffffff;">
+                            <div class="container" style="background-color: #f0f0f0; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                                <label for="exampleMessage" style="font-size: 18px; color: #333; margin-bottom: 10px; display: block;">Your Message:</label>
+                                <textarea class="full-width" placeholder="Type your message here..." name="mood_pred" style="color: #333; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 16px; background-color: #fff;" id="exampleMessage"></textarea>
+                            </div>
+                            
+                            <input class="btn btn-primary d-flex m-auto" type="submit" ><br>
+                    
+                        {% if final_result == 'Normal' %}
+                        <h1 style="border: 2px solid #4CAF50; /* Green border */
+                        padding: 15px; /* Some padding */
+                        text-align: center; /* Center text */
+                        font-size: 24px; /* Increase font size */
+                        margin: 20px; /* Add margin */
+                        background-color: white; /* White background color */
+                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+                        border-radius: 10px; /* Add rounded corners */
+                        color: #4CAF50; /* Green text color */
+                        font-family: 'Arial', sans-serif; /* Specify font family */
+                        font-weight: bold; /* Make text bold */
+                        ">Normal</h1>
+                        
+                                     {% elif final_result == 'Fraud' %}
+                                     <h1 style="border: 2px solid #FF5733; /* Red border */
+                                     padding: 15px; /* Some padding */
+                                     text-align: center; /* Center text */
+                                     
+                                     font-size: 24px; /* Increase font size */
+                                     margin: 20px; /* Add margin */
+                                     background-color: white; /* White background color */
+                                     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+                                     border-radius: 10px; /* Add rounded corners */
+                                     color: #FF5733; /* Red text color */
+                                     font-family: 'Arial', sans-serif; /* Specify font family */
+                                     font-weight: bold; /* Make text bold */
+                                     ">Fraud</h1>
+                                                  {% else %}
+                            <p class="text-danger"></p>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+    
+    <!-- header 
+    ================================================== -->
+    <header class="s-header">
+
+        <div class="header-logo">
+            <a class="site-logo" href="{% url "dashboard" %}">
+                <img src="{% static "userstatic/images/mlogom.png" %}" alt="Homepage" style="height: 80px; width: 100px; margin-left: 50px; ">
+            </a>
+        </div>
+
+        <nav class="row header-nav-wrap wide">
+            <ul class="header-main-nav">
+                <li class="current"><a href="{% url "dashboard" %}" title="blog">Dashboard</a></li>
+                <li><a href="{% url "myprofile" %}" title="blog">My Profile</a></li>
+                <li><a href="{% url "detection" %}" title="blog">Detection</a></li>
+                <li><a href="{% url "feedback" %}" title="blog">Feedback</a></li>
+
+            </ul>
+
+            <ul class="header-social">
+                <li><a href="#0"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
+                <li><a href="#0"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+                <li><a href="#0"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+            </ul>
+        </nav>
+
+        <a class="header-menu-toggle" href="#"><span>Menu</span></a>
+    
+    </header> <!-- end header -->
+    <section class="page-header">
+
+        <div class="row page-header__content narrower text-center">
+            <div class="col-full">
+
+                <h3 class="subhead">Fraud SMS Email Detection</h3>
+                <h3 style="color: #ffffff;" class="display-1">
+                    Thoughts, Ideas, Insights and Other Stuff.
+                </h2>
+
+               
+                </div>  <!-- end page-header__search -->
+
+            </div>
+        </div>
+
+    </section> <!-- end page-header -->
+
+
+
+
+
+
+
+
+
+    <!-- footer
+    ================================================== -->
+    <footer class="s-footer footer">
+
+        <div class="row footer__top">
+            <div class="col-six md-full">
+                <h1 class="display-2">
+                    Let's Stay In Touch.
+                </h1>
+                <p class="lead">
+                    Subscribe for updates, special offers and more.
+                </p>
+            </div>
+            <div class="col-six md-full footer__subscribe end">
+                <div class="subscribe-form">
+                    <form id="mc-form" class="group" novalidate="true">
+
+                        <input type="email" value="" name="EMAIL" class="email" id="mc-email" placeholder="Email Address" required="">
+            
+                        <input type="submit" name="subscribe" value="Sign Up">
+            
+                        <label for="mc-email" class="subscribe-message"></label>
+            
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row footer__bottom">
+            <div class="col-five tab-full">
+                <div class="footer__logo">
+                    <a href="{% url "dashboard" %}">
+                        <img src="{% static "userstatic/images/logo-2.png" %}" alt="Homepage" style="height: 40px; width: 100%;">
+
+                    </a>
+                </div>
+
+                <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed 
+                do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+                laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
+
+                <ul class="footer__social">
+                    <li><a href="#0"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
+                    <li><a href="#0"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+                    <li><a href="#0"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+                </ul>
+            </div>
+
+            <div class="col-six tab-full end">
+                <ul class="footer__site-links">
+                    <li><a class="smoothscroll" href="#" title="intro">Dashboard</a></li>
+                    <li><a class="smoothscroll" href="#" title="about">My Profile</a></li>
+                    <li><a class="smoothscroll" href="#" title="features">Mail Detection</a></li>
+                    <li><a class="smoothscroll" href="#" title="pricing">Feedback</a></li>
+                </ul>
+
+                <p class="footer__contact">
+                    Do you have a question? Send us a word: <br>
+                    <a href="#" class="footer__mail-link">projects@codebook.in</a>
+                </p>
+
+                <div class="cl-copyright">
+                    <span>
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://www.codebook.in/" target="_blank">Codebook</a>
+</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="go-top">
+            <a class="smoothscroll" title="Back to Top" href="#top"></a>
+        </div>
+
+    </footer> <!-- end s-footer -->
+
+
+   <!-- Java Script
+    ================================================== -->
+    <script src="{% static "userstatic/js/jquery-3.2.1.min.js" %}"></script>
+    <script src="{% static "userstatic/js/plugins.js" %}"></script>
+    <script src="{% static "userstatic/js/main.js" %}"></script>
+     <!-- script
+    ================================================== -->
+    <script src="{% static "userstatic/js/modernizr.js" %}"></script>
+    <script src="{% static "userstatic/js/pace.min.js" %}"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,396 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+
+    <!--- basic page needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>Fake Mail Detection</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- mobile specific metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="{% static "userstatic/css/base.css" %}">
+    <link rel="stylesheet" href="{% static "userstatic/css/vendor.css" %}">
+    <link rel="stylesheet" href="{% static "userstatic/css/main.css" %}">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .harsha {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            background: linear-gradient(135deg, #040404, #7d7b7e);
+        }
+
+        
+
+        .container .title {
+            font-size: 25px;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .container .title::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 3px;
+            width: 30px;
+            border-radius: 5px;
+            background: linear-gradient(135deg, #000000, #530372);
+        }
+
+        .content form .user-details {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 20px 0 12px 0;
+        }
+
+        form .user-details .input-box {
+            margin-bottom: 15px;
+            width: calc(100% / 2 - 20px);
+        }
+
+        form .input-box span.details {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .user-details .input-box input {
+            height: 45px;
+            width: 100%;
+            outline: none;
+            font-size: 16px;
+            border-radius: 5px;
+            padding-left: 15px;
+            border: 1px solid #ccc;
+            border-bottom-width: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .user-details .input-box input:focus,
+        .user-details .input-box input:valid {
+            border-color: #000000;
+        }
+
+        form .gender-details .gender-title {
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        form .category {
+            display: flex;
+            width: 80%;
+            margin: 14px 0;
+            justify-content: space-between;
+        }
+
+        form .category label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        form .category label .dot {
+            height: 18px;
+            width: 18px;
+            border-radius: 50%;
+            margin-right: 10px;
+            background: #d9d9d9;
+            border: 5px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        #dot-1:checked~.category label .one,
+        #dot-2:checked~.category label .two,
+        #dot-3:checked~.category label .three {
+            background: #000000;
+            border-color: #515151;
+        }
+
+        form input[type="radio"] {
+            display: none;
+        }
+
+        form .button {
+            height: 45px;
+            margin: 35px 0
+        }
+
+        form .button input {
+            height: 100%;
+            width: 100%;
+            border-radius: 5px;
+            border: none;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #010102, #4a484b);
+        }
+
+        form .button input:hover {
+            /* transform: scale(0.99); */
+            background: linear-gradient(-135deg, #000000, #4d046a);
+        }
+
+        @media(max-width: 584px) {
+            .container {
+                max-width: 100%;
+            }
+
+            form .user-details .input-box {
+                margin-bottom: 15px;
+                width: 100%;
+            }
+
+            form .category {
+                width: 100%;
+            }
+
+            .content form .user-details {
+                max-height: 300px;
+                overflow-y: scroll;
+            }
+
+            .user-details::-webkit-scrollbar {
+                width: 5px;
+            }
+        }
+
+        @media(max-width: 459px) {
+            .container .content .category {
+                flex-direction: column;
+            }
+        }
+    </style>
+
+
+
+    <!-- favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+</head>
+
+<body id="top">
+
+    <div id="preloader">
+        <div id="loader"></div>
+    </div>
+
+
+    <!-- header 
+    ================================================== -->
+    <header class="s-header">
+
+        <div class="header-logo">
+            <a class="site-logo" href="{% url "dashboard" %}">
+                <img src="{% static "userstatic/images/mlogom.png" %}" alt="Homepage" style="height: 80px; width: 100px; margin-left: 50px; ">
+            </a>
+        </div>
+
+        <nav class="row header-nav-wrap wide">
+            <ul class="header-main-nav">
+                <li ><a href="{% url "dashboard" %}" title="blog">Dashboard</a></li>
+                <li class="current"><a href="{% url "myprofile" %}" title="blog">My Profile</a></li>
+                <li ><a href="{% url "detection" %}" title="blog">Spam Detection</a></li>
+                <li><a href="{% url "feedback" %}" title="blog">Feedback</a></li>
+                <li><a href="{% url "userlogout" %}" title="blog">Logout</a></li>
+            </ul>
+
+            <ul class="header-social">
+                <li><a href="#0"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
+                <li><a href="#0"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+                <li><a href="#0"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+            </ul>
+        </nav>
+
+        <a class="header-menu-toggle" href="#"><span>Menu</span></a>
+    
+    </header> <!-- end header -->
+    <section class="page-header">
+
+        <div class="row page-header__content narrower text-center">
+            <div class="col-full">
+
+                <h3 class="subhead">My Profile</h3>
+                <h3 style="color: #ffffff;" class="display-1">
+                    Thoughts, Ideas, Insights and Other Stuff.
+                </h2>
+
+               
+                </div>  <!-- end page-header__search -->
+
+            </div>
+        </div>
+
+    </section> <!-- end page-header -->
+
+    <div class="harsha">
+        <div class="container">
+            <div class="title text-center" style="color:rgb(233, 232, 232);">My Profile</div>
+            <div class="content">
+                <form method = "POST" enctype='multipart/form-data' id = 'form' name = 'myregisterform'>
+                    {% csrf_token %}
+                    <div class="col-md-3">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <img class="rounded-circle mt-5" src="/media/{{i.user_file}}" height="200px" width="200px">
+                            <!-- Choose File button --><br>
+                            <label for="fileInput" class="btn btn-primary mt-3">Select Image</label>
+                            <input id="fileInput" type="file" name="user_file" style="display: none;">
+                        </div>
+                    </div>
+                    <div class="user-details ">
+                        <div class="input-box">
+                            <span class="details" style="color:rgb(239, 232, 232);">Username</span>
+                            <input type="text" name = 'user_name' style="color:rgb(238, 233, 233);" placeholder="Enter your Username" value="{{i.user_username}}" required>
+                        </div>
+                        <div class="input-box">
+                            <span class="details" style="color:rgb(239, 232, 232);">Email Id</span>
+                            <input type="text" name = 'email_address' style="color:rgb(238, 233, 233);" value="{{i.user_username}}"  placeholder="Enter your Email" required>
+                        </div>
+                        <div class="input-box">
+                            <span class="details" style="color:rgb(201, 195, 195);">Password</span>
+                            <input type="text" style="color:rgb(238, 233, 233);" name = 'email_password' value="{{i.user_email}}" placeholder="Enter your Password" required>
+                        </div>
+                        <div class="input-box">
+                            <span class="details" style="color:rgb(197, 177, 177);">Contact</span>
+                            <input type="text" style="color:rgb(238, 233, 233);" value="{{i.user_contact}}" name = 'contact_number' placeholder="Enter your Contact"  required>
+                        </div>
+                        <div class="input-box">
+                            <span class="details" style="color:rgb(197, 177, 177);">Date</span>
+                            <input type="text" style="color:rgb(238, 233, 233);" value="{{i.user_username}}" name = 'date' placeholder="Enter your password" required>
+                        </div>
+                       
+                    </div>
+                   
+                    <div class="button" style="margin-left: 190px;">
+                        <button type='submit'><input style="text-align: center; padding-top: 7px; padding-bottom: 7px; padding-left: 430px; padding-right:430px" value="Edit Profile"></button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <!-- footer
+    ================================================== -->
+    <footer class="s-footer footer">
+
+        <div class="row footer__top">
+            <div class="col-six md-full">
+                <h1 class="display-2">
+                    Let's Stay In Touch.
+                </h1>
+                <p class="lead">
+                    Subscribe for updates, special offers and more.
+                </p>
+            </div>
+            <div class="col-six md-full footer__subscribe end">
+                <div class="subscribe-form">
+                    <form id="mc-form" class="group" novalidate="true">
+
+                        <input type="email" value="" name="EMAIL" class="email" id="mc-email" placeholder="Email Address" required="">
+            
+                        <input type="submit" name="subscribe" value="Sign Up">
+            
+                        <label for="mc-email" class="subscribe-message"></label>
+            
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row footer__bottom">
+            <div class="col-five tab-full">
+                <div class="footer__logo">
+                    <a href="{% url "dashboard" %}">
+                        <img src="{% static "userstatic/images/logo-2.png" %}" alt="Homepage" style="height: 40px; width: 100%;">
+
+                    </a>
+                </div>
+
+                <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed 
+                do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+                laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
+
+                <ul class="footer__social">
+                    <li><a href="#0"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
+                    <li><a href="#0"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+                    <li><a href="#0"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+                </ul>
+            </div>
+
+            <div class="col-six tab-full end">
+                <ul class="footer__site-links">
+                    <li><a class="smoothscroll" href="#" title="intro">Dashboard</a></li>
+                    <li><a class="smoothscroll" href="#" title="about">My Profile</a></li>
+                    <li><a class="smoothscroll" href="#" title="features">Mail Detection</a></li>
+                    <li><a class="smoothscroll" href="#" title="pricing">Feedback</a></li>
+                </ul>
+
+                <p class="footer__contact">
+                    Do you have a question? Send us a word: <br>
+                    <a href="#" class="footer__mail-link">projects@codebook.in</a>
+                </p>
+
+                <div class="cl-copyright">
+                    <span>
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://www.codebook.in/" target="_blank">Codebook</a>
+</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="go-top">
+            <a class="smoothscroll" title="Back to Top" href="#top"></a>
+        </div>
+
+    </footer> <!-- end s-footer -->
+
+
+   <!-- Java Script
+    ================================================== -->
+    <script src="{% static "userstatic/js/jquery-3.2.1.min.js" %}"></script>
+    <script src="{% static "userstatic/js/plugins.js" %}"></script>
+    <script src="{% static "userstatic/js/main.js" %}"></script>
+     <!-- script
+    ================================================== -->
+    <script src="{% static "userstatic/js/modernizr.js" %}"></script>
+    <script src="{% static "userstatic/js/pace.min.js" %}"></script>
+
+
+</body>
+</html>
